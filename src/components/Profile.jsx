@@ -178,7 +178,10 @@ const Profile = () => {
                   </Col>
                 </Row>
 
-                <Button onClick={() => setModalOpen(true)}>Choose Image</Button>
+                <Button onClick={() => setModalOpen(true)} className="me-3">
+                  Choose Image
+                </Button>
+                <Button onClick={handleCreateCertificate}>Preview Image</Button>
 
                 {docImgUrl && (
                   <Row className="my-3">
@@ -196,8 +199,6 @@ const Profile = () => {
                     </Col>
                   </Row>
                 )}
-
-                <Button onClick={handleCreateCertificate}>Preview Image</Button>
               </Col>
             </Row>
           </Col>
