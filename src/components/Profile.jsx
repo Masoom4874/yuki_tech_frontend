@@ -3,12 +3,13 @@ import PencilIcon from "./PencilIcon";
 import Modal from "./Modal";
 import jsPDF from "jspdf";
 import { Row, Col, Form, Button } from "react-bootstrap";
-import homePageImg from "../assets/linkImg.jpg";
+import homePageImg from "../assets/homePageImg.jpg";
 import templateImg from "../assets/templateImg.jpg";
+
 const Profile = () => {
   const [name, setName] = useState("");
 
-  //temp Data
+  // Temp Data
   const [empCode, setEmpCode] = useState("");
   const [div, setDiv] = useState("");
   const [contNo, setContNo] = useState("");
@@ -35,9 +36,10 @@ const Profile = () => {
     }
   };
 
-  const [cropppedImg, setCroppedImg] = useState(null);
+  const [croppedImg, setCroppedImg] = useState(null);
   const updateAvatar = (croppedImageUrl) => {
     setDocImgUrl(croppedImageUrl); // Update preview immediately
+    setCroppedImg(croppedImageUrl); // Save cropped image data URL
     setModalOpen(false); // Close modal after cropping
   };
 
@@ -53,11 +55,8 @@ const Profile = () => {
       return;
     }
 
-    // Retrieve cropped image data from localStorage
-    const imgData = localStorage.getItem("croppedImage");
-
     // Check if image data is available
-    if (!imgData) {
+    if (!croppedImg) {
       alert("Please Upload Image");
       return;
     }
@@ -114,7 +113,7 @@ const Profile = () => {
 
       // Add cropped image (if needed)
       const img = new Image();
-      img.src = imgData;
+      img.src = croppedImg;
       img.onload = () => {
         const imgSize = 61.8; // Diameter of the circular image
         const x = imgWidth / 2 - imgSize / 2; // Centered horizontally
@@ -162,6 +161,7 @@ const Profile = () => {
                   <Form.Control
                     placeholder="Enter Name"
                     value={name}
+                    maxLength={15}
                     onChange={handleNameChange}
                   />
                 </Col>

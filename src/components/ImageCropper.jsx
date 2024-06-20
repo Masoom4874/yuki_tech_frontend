@@ -100,10 +100,7 @@ const ImageCropper = ({ closeModal, updateAvatar }) => {
               );
               const dataUrl = previewCanvasRef.current.toDataURL();
 
-              // Store the cropped image data URL in local storage
-              localStorage.setItem("croppedImage", dataUrl);
-
-              // Assuming updateAvatar saves the image elsewhere, e.g., uploads it
+              // Update avatar with the cropped image data URL
               updateAvatar(dataUrl);
 
               closeModal();
