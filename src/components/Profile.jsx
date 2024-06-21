@@ -80,7 +80,7 @@ const Profile = () => {
       ctx.drawImage(templateImage, 0, 0, imgWidth, imgHeight);
 
       // Set font size and add text for name
-      ctx.font = "32px Arial"; // Set font to Arial with size 32px
+      ctx.font = "24px Arial"; // Set font to Arial with size 32px
       ctx.fillStyle = "#FFFFFF";
       const fullName = `Dr. ${name}`;
       const textWidth = ctx.measureText(fullName).width;
@@ -158,7 +158,7 @@ const Profile = () => {
                     <Form.Control
                       placeholder="Enter Name"
                       value={name}
-                      maxLength={15}
+                      maxLength={21}
                       onChange={handleNameChange}
                     />
                   </Col>
