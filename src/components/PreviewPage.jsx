@@ -9,7 +9,7 @@ const PreviewPage = () => {
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = imageUrl;
-    link.download = "certificate.jpg";
+    link.download = "eCard.jpg";
     link.click();
   };
 
