@@ -11,7 +11,7 @@ const HomePage = () => {
   const handleCheckEmp = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/yuki/check-emp",
+        "http://13.53.170.179:3000/api/v1/yuki/check-emp",
         { empCode }
       );
       if (response.data.status) {

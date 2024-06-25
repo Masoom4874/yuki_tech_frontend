@@ -13,7 +13,7 @@ const AdminPanel = () => {
     const fetchEmpList = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/v1/yuki/get-emp-data"
+          "http://13.53.170.179:3000/api/v1/yuki/get-emp-data"
         );
 
         console.log(res.data.data);

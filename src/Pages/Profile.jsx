@@ -138,7 +138,7 @@ const Profile = () => {
 
         try {
           const response = await axios.post(
-            "http://localhost:3000/api/v1/yuki/create-cert",
+            "http://13.53.170.179:3000/api/v1/yuki/create-cert",
             formData,
             {
               headers: {
