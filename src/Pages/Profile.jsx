@@ -20,6 +20,7 @@ const Profile = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [croppedImg, setCroppedImg] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [apiPreview, setApiPreview] = useState(false);
 
   const navigate = useNavigate();
 
@@ -52,7 +53,6 @@ const Profile = () => {
   };
 
   const handleCreateCertificate = () => {
-    console.log(empData);
     const { docName, contNo } = formData;
 
     if (!docName) {
@@ -136,9 +136,10 @@ const Profile = () => {
         formData.append("contNo", contNo);
         formData.append("cert", jpegUrl);
 
+        setApiPreview(true);
         try {
           const response = await axios.post(
-            "http://13.53.170.179:3000/api/v1/yuki/create-cert",
+            "https://apexapi.progreet.app:3000/api/v1/yuki/create-cert",
             formData,
             {
               headers: {
@@ -157,6 +158,8 @@ const Profile = () => {
         } catch (error) {
           console.error("Error creating certificate:", error);
           alert("An error occurred while creating the certificate.");
+        } finally {
+          setApiPreview(false);
         }
       };
     };
@@ -233,9 +236,10 @@ const Profile = () => {
               </Button>
               <Button
                 variant="outline-success"
+                disabled={apiPreview}
                 onClick={handleCreateCertificate}
               >
-                Save & Next
+                {apiPreview ? "Processing..." : "Save & Next"}
               </Button>
 
               {docImgUrl && (

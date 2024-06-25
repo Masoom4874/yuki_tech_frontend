@@ -11,7 +11,7 @@ const HomePage = () => {
   const handleCheckEmp = async () => {
     try {
       const response = await axios.post(
-        "http://13.53.170.179:3000/api/v1/yuki/check-emp",
+        "https://apexapi.progreet.app/api/v1/yuki/check-emp",
         { empCode }
       );
       if (response.data.status) {
@@ -39,7 +39,9 @@ const HomePage = () => {
           <Col xs={12} md={6} className="mb-3">
             <Row className="align-items-end">
               <Col xs={12} md={12} lg={6} className="mb-3">
-                <h2 className="mb-3 fs-2 fw-semibold">DOCTOR'S Day</h2>
+                <h2 className="mb-3 fs-2 fw-semibold">
+                  Apex DOCTOR'S Day Activity
+                </h2>
                 <h4 className="mb-2 fw-semibold">Employee Code</h4>
                 <Form.Control
                   className="mb-2"

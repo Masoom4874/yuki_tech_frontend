@@ -13,7 +13,7 @@ const AdminPanel = () => {
     const fetchEmpList = async () => {
       try {
         const res = await axios.get(
-          "http://13.53.170.179:3000/api/v1/yuki/get-emp-data"
+          "https://apexapi.progreet.app/api/v1/yuki/get-emp-data"
         );
 
         console.log(res.data.data);
@@ -40,19 +40,19 @@ const AdminPanel = () => {
     setCurrentPage(pageNumber);
   };
 
-  const handleViewImage = (base64Image) => {
-    const strippedBase64 = base64Image.replace(
-      /^data:image\/(png|jpeg);base64,/,
-      ""
-    );
-    setSelectedImage(`data:image/jpeg;base64,${strippedBase64}`);
-    setShowModal(true);
-  };
+  // const handleViewImage = (base64Image) => {
+  //   const strippedBase64 = base64Image.replace(
+  //     /^data:image\/(png|jpeg);base64,/,
+  //     ""
+  //   );
+  //   setSelectedImage(`data:image/jpeg;base64,${strippedBase64}`);
+  //   setShowModal(true);
+  // };
 
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedImage(null);
-  };
+  // const closeModal = () => {
+  //   setShowModal(false);
+  //   setSelectedImage(null);
+  // };
 
   return (
     <>
@@ -78,12 +78,9 @@ const AdminPanel = () => {
               <td>{emp.docName}</td>
               <td>{emp.contNo}</td>
               <td className="text-center">
-                <Button
-                  variant="link"
-                  onClick={() => handleViewImage(emp.cert)}
-                >
+                <a href={emp.cert} target="_blank" rel="noopener noreferrer">
                   view
-                </Button>
+                </a>
               </td>
             </tr>
           ))}
@@ -118,7 +115,7 @@ const AdminPanel = () => {
         />
       </Pagination>
 
-      <Modal show={showModal} onHide={closeModal} size="lg">
+      {/* <Modal show={showModal} onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Preview Image</Modal.Title>
         </Modal.Header>
@@ -132,7 +129,7 @@ const AdminPanel = () => {
             Close
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
