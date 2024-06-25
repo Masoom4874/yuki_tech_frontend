@@ -135,7 +135,7 @@ const Profile = () => {
         formData.append("id", empData._id);
         formData.append("docName", docName);
         formData.append("contNo", contNo);
-        formData.append("cert", jpegUrl);
+        formData.append("cert", croppedImg);
 
         setApiPreview(true);
         try {
@@ -153,7 +153,7 @@ const Profile = () => {
             navigate("/preview", {
               state: { previewImage: jpegUrl, docName: docName },
             });
-          } else { 
+          } else {
             alert("Error creating certificate. Please try again.");
           }
         } catch (error) {
