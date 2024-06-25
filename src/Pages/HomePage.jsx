@@ -3,6 +3,7 @@ import homePageImg from "../assets/homePageImg.jpg";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getURLbyEndPoint } from "../utils/api";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -10,10 +11,9 @@ const HomePage = () => {
 
   const handleCheckEmp = async () => {
     try {
-      const response = await axios.post(
-        "https://apexapi.progreet.app/api/v1/yuki/check-emp",
-        { empCode }
-      );
+      const response = await axios.post(getURLbyEndPoint("checkEmp"), {
+        empCode,
+      });
       if (response.data.status) {
         navigate("/profile", { state: { empData: response.data.data } });
       } else {

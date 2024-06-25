@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table, Pagination, Modal, Button } from "react-bootstrap";
+import { getURLbyEndPoint } from "../utils/api";
 
 const AdminPanel = () => {
   const [empList, setEmpList] = useState([]);
@@ -12,9 +13,7 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchEmpList = async () => {
       try {
-        const res = await axios.get(
-          "https://apexapi.progreet.app/api/v1/yuki/get-emp-data"
-        );
+        const res = await axios.get(getURLbyEndPoint("getEmpData"));
 
         console.log(res.data.data);
         if (res.data.status) {

@@ -5,6 +5,7 @@ import Modal from "../components/Modal";
 import homePageImg from "../assets/homePageImg.jpg";
 import templateImg from "../assets/templateImg.jpg";
 import axios from "axios";
+import { getURLbyEndPoint } from "../utils/api";
 
 const Profile = () => {
   const location = useLocation();
@@ -139,7 +140,7 @@ const Profile = () => {
         setApiPreview(true);
         try {
           const response = await axios.post(
-            "https://apexapi.progreet.app:3000/api/v1/yuki/create-cert",
+            getURLbyEndPoint("createCert"),
             formData,
             {
               headers: {
@@ -152,7 +153,7 @@ const Profile = () => {
             navigate("/preview", {
               state: { previewImage: jpegUrl, docName: docName },
             });
-          } else {
+          } else { 
             alert("Error creating certificate. Please try again.");
           }
         } catch (error) {
