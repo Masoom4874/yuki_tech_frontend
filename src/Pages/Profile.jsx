@@ -152,12 +152,6 @@ const Profile = () => {
         // Convert the data URL to a File object
         const jpegFile = dataURLtoFile(jpegUrl, "certificate.jpg");
 
-        // Download the file for testing
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(jpegFile);
-        link.download = "certificate.jpg";
-        link.click();
-
         // Prepare form data for the API call
         const formData = new FormData();
         formData.append("id", empData?._id);
