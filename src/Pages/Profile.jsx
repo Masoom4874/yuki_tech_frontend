@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import Modal from "../components/Modal";
@@ -8,8 +8,15 @@ import axios from "axios";
 import { getURLbyEndPoint } from "../utils/api";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const location = useLocation();
-  const { empData } = location.state;
+  const { empData } = location.state || {};
+
+  useEffect(() => {
+    if (!empData) {
+      navigate("/");
+    }
+  }, [empData, navigate]);
 
   const [formData, setFormData] = useState({
     docName: "",
@@ -22,8 +29,6 @@ const Profile = () => {
   const [croppedImg, setCroppedImg] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [apiPreview, setApiPreview] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,6 +56,20 @@ const Profile = () => {
     setDocImgUrl(croppedImageUrl); // Update preview immediately
     setCroppedImg(croppedImageUrl); // Save cropped image data URL
     setModalOpen(false); // Close modal after cropping
+  };
+
+  const dataURLtoFile = (dataurl, filename) => {
+    const arr = dataurl.split(",");
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([new Blob([u8arr], { type: mime })], filename, {
+      type: mime,
+    });
   };
 
   const handleCreateCertificate = () => {
@@ -130,12 +149,21 @@ const Profile = () => {
         // Set the preview image and navigate to the preview page
         setPreviewImage(jpegUrl);
 
+        // Convert the data URL to a File object
+        const jpegFile = dataURLtoFile(jpegUrl, "certificate.jpg");
+
+        // Download the file for testing
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(jpegFile);
+        link.download = "certificate.jpg";
+        link.click();
+
         // Prepare form data for the API call
         const formData = new FormData();
-        formData.append("id", empData._id);
+        formData.append("id", empData?._id);
         formData.append("docName", docName);
         formData.append("contNo", contNo);
-        formData.append("cert", croppedImg);
+        formData.append("cert", jpegFile);
 
         setApiPreview(true);
         try {
@@ -189,7 +217,7 @@ const Profile = () => {
                     </InputGroup.Text>
                     <Form.Control
                       disabled
-                      placeholder={empData.empCode}
+                      placeholder={empData?.empCode}
                       aria-label="empCode"
                       aria-describedby="basic-addon1"
                     />
@@ -202,7 +230,7 @@ const Profile = () => {
                     </InputGroup.Text>
                     <Form.Control
                       disabled
-                      placeholder={empData.compName}
+                      placeholder={empData?.compName}
                       aria-label="compName"
                       aria-describedby="basic-addon1"
                     />
